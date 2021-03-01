@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>ISSTemplate2021</title></head>
+    
+<body>
+<div id="top">
+<h1>LABORATORIO DI INGEGNERIA DEI SISTEMI SOFTWARE <font size="5"></font> </h1> 
+
+</div>  
+
+<div class="body"> 
+<h2>Introduction </h2>
+ 
+<div class="remark">
+Our motto:<br/>   <k>there is no code without a project, no project
+without problem analysis and no problem without requirements</k>.
+</div> 
+<h2>Requirements</h2>
+
+ 
+<div class="remark">
+Design and build a software system that leads a robot to walk along the boundary of a empty, rectangular room.
+</div>
+
+ 
+
+<h2>Requirement analysis</h2>
+ 
+The <b>interaction with the client</b> made it clear that he associates the following meaning with nouns:
+<ul>
+<li><ks>room</ks>: a conventional room, as found in all buildings</li>
+<li><ks>boundary</ks>: perimeter of the room, physically bounded by solid <ks>walls</ks></li>
+<li><ks>robot</ks>: a device capable of moving by receiving commands via the network, as reported in 
+<a href="VirtualRobot2021.html#commands" target="web"><ks>VirtualRobot2021.html</ks></a>.
+ </li>
+</ul>
+
+Regarding actions (verbs):
+<ul>
+<li><ks>walk</ks>: the robot must move forward, alongside the walls of the room.</li>
+</ul>
+
+<h3>First <a href="https://en.wikipedia.org/wiki/User_story" target="web">user story</a></h3>
+
+ <table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:60%" >
+ 
+As a user, I place the robot in the HOME cell (facing south) and then activate a system that sends movement commands to the robot (via wifi network). 
+<br/>
+As a user I cannot interrupt the execution: the system must terminate autonomously, once the task has been performed.
+<br/><br/>
+At the end of the execution of the system, I expect that the robot has carried out (only once) the path shown in the figure to the side. 
+ 
+</td>
+<td><center><img src="./img/TestPlan0.png" alt="TestPlan0" width="60%" ></center>
+</td>
+</tr>
+ </tbody>
+</table>
+
+
+
+
+
+<h4>Test plans</h4> 
+
+ <table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%" >
+It is necessary to verify that the path taken by the robot is as expected.   
+</td>
+<td><div class="remark">
+The verification of the congruence of the path must be carried out using a software, without human user intervenction. 
+</div>
+</td>
+</tr>
+ </tbody>
+</table>
+
+<h2>Problem analysis</h2>
+
+<h3>Relevant aspects</h3>
+
+<ol>
+<li>
+It is a question of creating a <k>distributed system</k> consisting of two macro-components: 
+	<ul>
+	<li>the (virtual) robot supplied by the client </li>
+	<li>our application (<ks>boundaryWalk</ks>) which sends commands to the robot in order to meet the client's requirement </li>
+	</ul>
+</li>
+<li>The robot can be controlled via the network in two different ways, as described in  
+<a href="VirtualRobot2021.html#commands" target="web">VirtualRobot2021.html: commands</a>:
+	<ul>
+	<li>sending messages to port <tt>8090</tt> with HTTP POST protocol </li>
+	<li>sending messages to port <tt>8091</tt> using a web socket</li>
+	</ul>
+</li>
+<li>
+Since there are numerous libraries in many programming languages that allow the sending of these commands, 
+<ks>no significant abstraction-gap</ks> was identified on an operational level.  
+<div class="remark">
+However, there is an <k>abstraction gap on a conceptual level</k>: there are two possible technologies to communicate 
+with the robot and each requires appropriate supports. However, conceptually it is always a question of setting up 
+a <ks>request-response interaction scheme</ks>. 
+</div>
+</li>
+
+<li>
+We estimate that a first prototype of the application should be able to be built in three working days (at most) .
+</li>
+</ol>
+
+
+<h3>Logical architecture </h3>
+
+<table style="width:98%">
+<tr>
+<td style="width:40%" >	<p align="center">Legend:</p> 
+<br/>
+
+
+</td>
+<td> 
+ <center><img src="./img/legenda.png" alt="legenda" width="50%" ></center>
+</td>
+</tr>
+
+<tbody>	
+<tr>
+<td style="width:40%" >
+ <center><img src="./img/iss0_logicArch0.png" alt="iss0_logicArch0" width="70%" ></center>
+
+</td>
+<td>The exact nature of the <ks>boundaryWalk</ks> component will be defined in the design phase. 
+<br/><br/>
+Regarding the interaction we can say that: 
+<ul>
+<li>the use of the HTTP protocol seems completely adequate, at least in a first phase;  </li>
+<li>the use of the websocket could prove to be <i>more flexible</i> (as it allows to receive
+<k>information emitted by WEnv in a 'spontaneous' way</k>) and <i>more efficient</i> (as it reduces the protocol hierarchy).</li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="remark">
+	The figure above is NOT the system. It is the graphic (informal) representation of a model of the system. 
+	</div>
+
+
+ 
+ 
+<h3>Problems identified</h3>
+
+<ol>
+<li><h4>Interaction Abstraction</h4>
+The software system should be made as independent as possible from the communication protocol used for the interaction with WEnv. 
+<br/>
+The designer could use some <ks>design pattern</ks> to make the application layer as <k>invariant</k> as possible 
+with respect to the communication protocol, which could be selected in a system <k>configuration phase</k> 
+</li>
+
+<li><h4>Testing, but not only </h4>
+
+At this stage, however, our goal <k> is not to run tests </k>, but to devise the best way to define the tests so that they can 
+automatically identify software flaws (with respect to the requirements) 
+<br/><br/>  
+The goal of defining an <tt>automatable TestPlan </tt> actually introduces a <k> new requirement </k>:
+make the application observable, or rather make its effects verifiable, by a machine.  
+<br/>
+In particular, it is not enough to induce the robot to move;
+without cameras and/or specific environmental sensors, one way to proceed is to <ks> <i> infer knowledge </i> </ks> 
+from the commands sent and the responses obtained from WENV and <ks> represent in explicitly </ks> such knowledge. 
+<br/><br/>
+We could say that it is necessary to create within the application a sort of <k> <i> 'mind map' </i> </k> capable of
+<ks> model of the actions </ks> of the robot, on which a testing program can 'reason' to carry out the tests. 
+<br/>
+Logically an approach of this type does not ensure that the map corresponds to the real situation, 
+but this in fact corresponds to what also happens to all sentient beings in the biological world, 
+which operate on the basis of information obtained through the senses; in this case the 'sensors' 
+would be the WEnv responses to the moves. 
+<br/><br/>
+More specifically, given the information on how to use the robot, we can foreshadow that the solution to the problem consists 
+of the following algorithm (note that we still focus on <k> 'what' </k> to do rather than 'how to do it' ): 
+<pre>
+the robot starts from the HOME position, facing south (DOWN) 
+for 4 times: 
+	send <kc> moveForward </kc> commands to the robot until the robot hits the opposite wall 
+	and then I issue a <kc> turnLeft </kc> rotation command 
+</pre>
+</li>
+
+
+</ol>
+
+
+
+<h4>Possible strategy for TestPlan: 'infer knowledge' from commands </h4>
+ 
+To make the discussion easier, we introduce the following abbreviations relating to the cril commands: 
+<pre>
+<ks>w</ks> : expresses the move  <kc>{"robotmove":"moveForward", "time": 600}</kc>
+<ks>s</ks> : expresses the move  <kc>{"robotmove":"moveForward", "time ":600}</kc>
+<ks>h</ks> : expresses the move  <kc>{"robotmove":"moveForward", "time ":100}</kc>
+<ks>l</ks> : expresses the move  <kc>{"robotmove":"turnLeft ",   "time ":300}</kc>
+<ks>r</ks> : expresses the move  <kc>{"robotmove":"turnRight",   "time ":300}</kc>
+</pre>
+
+The testing strategy chosen is the following: 
+<ul>
+ 
+<li><ks>TESTPLAN</ks>: by setting the <kc> time </kc> for the <ks> w, s </ks> moves to obtain <k> robot-unit </k> moves, 
+we incrementally build a <k> map of the territory </k> after each move. In this way you could know where the robot is after 
+each command and therefore you could check the path taken at the end of the application; for example (<kc> 1 </kc> represents 
+the 'cells' traveled by the robot): 
+<pre>
+|r, 1, 1, 1, 1, 
+|1, 0, 0, 0, 1, 
+|1, 0, 0, 0, 1, 
+|1, 0, 0, 0, 1, 
+|1, 1, 1, 1, 1, X, 
+|X, 
+</pre>
+</li>
+ 
+</ul>
+
+</div>
+
+The choice of the <ks>TESTPLAN</ks> specified above is related to its scalability, as it presents a verification method that could
+be applied in different contentext (e.g. multiple robots in the room that must never occupy the same cell at the same time). 
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+<hr/>
+By Luigi Maccallini 
+<img src="./img/lm.jpg" alt="lm" width="15%" height="15%"> luigi.maccallini@studio.unibo.it 	|	<a style="color:white" href="https://github.com/luigi-mac/MaccalliniLuigi.git">Repo GitHub</a> 
+</div> 
+</body>
+</html>
