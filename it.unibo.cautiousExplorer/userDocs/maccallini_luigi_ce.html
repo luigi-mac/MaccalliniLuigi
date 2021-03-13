@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #35aaf8;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #209ffa52;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+div.Alpha{
+    background-color: #cccccc;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>Cautious Explorer</title></head>
+    
+<body>
+<div id="top">
+<h1>LABORATORIO DI INGEGNERIA DEI SISTEMI SOFTWARE - cautiousExplorer<font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+<h2>Introduction</h2>
+<div class="remark">
+This case-study starts to deal with the design and development of proactive/reactive software systems that use aynchronous exchange of information.
+</div>
+<h2>Requirements</h2>
+
+ 
+<div class="remark">
+    Design and build a software system that allow the robot described in 
+    <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a>
+    
+ to exibit the following behaviour:
+ <ul>
+    <li>the robot lives in a closed environment, delimited by walls that includes one or more devices (e.g. sonar) able to detect its presence;</li>
+    <li>the robot has a <ks>den</ks> for refuge, located near a wall;</li>
+    <li>the robot works as an <i>explorer of the environment</i>. Starting from its <ks>den</ks>,  the robot moves
+    (either randomly or - preferably - in a more organized way) with the aim to find the fixed obstacles around the <ks>den</ks>. 
+    The presence of mobile obstacles is (at the moment) excluded;</li>
+    <li>since the robot is <i>'cautious'</i>,  it  returns immediately to the <ks>den</ks> as soon as it finds an obstacle.
+    Optionally, it should also return to the <ks>den</ks> when a sonar detects its presence;
+    </li>
+    <li>the robot should remember the position of the obstacles found, by creating a sort of 'mental map' of the environment.</li>
+</ul>
+</div>
+
+ 
+
+<h2>Requirement analysis</h2>
+<div class="remark">
+In seguito alla nostra interazione con il cliente abbiamo ottenuto informazioni precise riguardo alle seguenti componenti:
+        <ul>
+            <li>robot: dispositivo in grado di muoversi nella stanza, tutte le specifiche date dal cliente sono presenti nel file <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a>; </li>
+            <li>movimento: sempre con riferimento al documento <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a> il robot è in grado di muoversi in avanti e indietro, oltre a poter ruotare di novanta gradi a destra e a sinistra;</li>
+            <li>sonar: dispositivo in grado di rilevare la presenza del robot, non abbiamo né informazioni sulla loro posizione né sul numero esatto di sonar presenti;</li>
+            <li>tana: punto della stanza vicino ad una delle mura, utilizzato dal robot come punto di partenza per ogni sua esplorazione e come punto di ritorno quando incontra un ostacolo. Come requisito opzionale, viene richiesto che il robot ritorni nella sua tana anche dopo essere stato rilevato dal sonar;</li>
+            <li>ostacolo: elemento della stanza diverso dalle pareti. Scopo del robot è quello di esplorare l'intera stanza e trovare gli ostacoli presenti. Al momento della richiesta l’ostacolo è considerato immobile;</li>
+            <li>mappa mentale del robot: insieme di dati di cui non è stata ancora definita una struttura ma che devono essere in grado di rappresentare la posizione degli ostacoli nell'ambiente.</li>
+        </ul>
+    </div>
+
+</div>
+
+<h2>Problem analysis</h2>
+<div class="remark">
+    Come riportato nel file <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a> </li> il robot è in grado di ricevere comandi tramite in due modalità:
+    <ul>
+        <li>comandi inviati tramite protocollo HTTP usando il metodo POST, presso la porta <tt style="color: #cd009a;">8090</tt></li>
+        <li>comandi inviati utilizzando il costrutto websocker utilizzando la porta <tt style="color: #cd009a;">8091</tt></li>
+    </ul>
+    Facendo riferimento all' introduzione del progetto, si nota che lo scambio di comandi deve essere asincrono, si decide quindi di utilizzare lo scambio di messaggi tramite web-socket attivo sulla porta <tt style="color: #cd009a;">8091</tt>.
+    Nonostante il gap di astrazione presente a livello concettuale, l'interazione asincrona sarà poi implementata utilizzando apposite librerie messe a disposizione dal linguaggio di programmazione che verrà scelto.
+    Dalle precedenti informazioni, risulta utile mostrare un'astrazione dell'architettura logica che sta dietro allo scambio di messaggi con il robot.
+    
+    <h3>Architettura logica</h3>
+
+        <table>
+            <tr>
+                <td> E' necessario realizzare un'applciazione distribuita composta di due macro-componenti:
+                    <ul>
+                        <li>
+                            il <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>Virtual Robot</em></a> fornito dal cliente
+                        </li>
+                    <li>
+                        la nostra applicazione del robot esploratore, utilizzando un scambio di messaggi asincrono
+                    </li>
+                    viene mostrata a fianco uno schema dell'architettura espressa nelle righe precedenti
+                    </ul>
+                </td>
+                <td>inserisci immagine interazione asincrona</td>
+            </tr>
+
+        </table>
+
+        possiamo inoltre osservare che:
+        <ul>
+            <li>non vengono effettuate richieste particolari sulla metodologia di esplorazione della stanza, sarà quindi deciso in futuro quale algoritmo permette di effetttuare la ricognizione nel modo più efficente possibile </li>
+            <li>
+            con il fine di poter rendere l'applicazione il più riutilizzabile possibile verranno introdotti dei deigns pattern proprio con lo scopo di rendere il tutto il meno dipendente dalle tecnologie utilizzate dal robot del cliente
+            </li>
+            
+        </ul>
+            Per la stesura di un primo testplan introduciamo le seguenti abbreciazioni ai comandi "CRILL" del robot
+           <br>
+            w : {"robotmove":"moveForward", "time": 600}
+            <br>
+            s : {"robotmove":"moveForward", "time ":600}
+            <br>
+            h : {"robotmove":"moveForward", "time ":100}
+            <br>
+            l : {"robotmove":"turnLeft ", "time ":300}
+            <br>
+            r : {"robotmove":"turnRight", "time ":300}
+            <br>
+            impostando ora la durata dei movimenti w e s in modo tale da ottenere uno spostamento pari alla lunghezza stessa del robot che verrà d'ora in poi
+            chiamata L ed usando questa distanza come unità di misura di una struttura dati in grado di rappresentare l'area esplorata dal robot, possiamo esprimere il suo comportamento
+            nella maniera seguente:
+
+           <div class="Alpha">
+           
+            Fino a che non sono stati trovati tutti gli ostacoli:<br>
+                alla prima iterazione effettua un movimento rettilineo fino a che non incontra un muro, poi torna alla tana.
+                    le seguenti iterazioni del ciclo ripercorreranno lo stesso percorso fino al penultimo movimento dopo di che provo un'altra mossa tra "l" e "r".
+                    se dalla struttura dati comprendo che nessuna delle mosse "l" e "r" mi porta ad una cella libera allora torno indietro e provo a rieseguire uno spostamento prima a destra
+                    poi a sinistra, e in caso di successo continuo fino ad incontrare un ostacolo. 
+             
+           </div>
+
+ </div>
+
+<h2>Test plans</h2> 
+
+ <div class="remark">
+    Alla prima interazione con il robot a questo verrà comandato di muoversi in avanti fino a che non incontrerà un ostacolo,
+            marcando ogni cella attraversata come percorribile o non percorribile. in seguito alla collisione il robot ritorna alla sua cella di partenza,
+            ripercorrendo le celle operando le mosse opposte a quelle del cammino di andata.  Da questo momento in poi il robot ripercorrerà sempre lo stesso
+            percorso eseguito nel cammino di andata precedente ad eccezione dell'ultimo comando, che verrà sostituito con una svolta a destra e continuando diritti fino 
+            ad incontrare il prossimo ostacolo. Se dalla struttura dati risulta che la svolta a destra porterà ad una collisione già avvenuta, questo eseguirà invece una rotazione a
+            sinistra muovendosi poi in avanti fino ad incontrare un ostacolo. Se dalla struttura dati anche la svolta a sinistra risulta impossibile, allora torno indietro di una mossa ed eseguo di nuovo gli step precedenti. Quando la struttura dati sarà completa e non saranno presenti alcuni spazi percorribili, si può allora
+            dire che il robot ha trovato tutti gli ostacoli presenti intorno alla sua tana.
+
+ </div>
+
+<h2>Project</h2> 
+<table style="width:98%">
+    <tbody>	
+    <tr>
+    <td style="width:50%">
+    <h3>Natura del componente dell'applicazione</h3>
+    L'applicazione <em>cautiousExplorer</em> è un programma Java convenzionale, rappresentato nella figura come un oggetto con un thread interno. 
+    <br/>
+    </td>
+
+    </tr>
+    
+    <tr>
+    <td style="width:50%">
+    <h3>Un'architettura a più livelli: il livello di comunicazione di base </h3>
+    <div class="remark">
+        Per rendere il 'business code' il più indipendente possibile dai dettagli tecnologici dell'interazione 
+        con il robot virtuale (e con qualsiasi altro tipo di robot in futuro), strutturiamo il codice secondo un'architettura 
+        a strati convenzionale, che è la forma più semplice di pattern architettonico software, in cui i componenti 
+        sono organizzati in strati orizzontali. 
+    </div>
+    
+    Per il protocollo WS introdurremo un apposito supporto che implementa l'interfaccia<br/>
+    <a href="../app/src/main/java/it/unibo/interaction/IssOperations.java" target="web"><em>IssOperations.java</em></a> 
+    <pre>
+        public interface IssOperations {
+            void forward( String msg ) ;
+        }
+    </pre>
+    Viene introdotta l'interfaccia così da prevedere sviluppi futuri.<br/><br/>
+    L'implementazione di <a href="../app/src/main/java/it/unibo/robotSupports/IssWsSupport.java" target="web"><em>IssWsSupport.java</em></a>
+    basata sulla libreria  <ks>javax.websocket</ks>.<br/><br/>
+    Si prevede un IssCommsSupportFactory.java che fornisce un metodo factory per creare il supporto di comunicazione 
+    appropriato utilizzando un'annotazione Java definita dall'utente correlata all'oggetto fornito in input. 
+    </td>
+    </tr>
+    
+    
+    
+    </tbody>
+    </table>
+</div>
+
+<h2>Testing</h2> 
+ 
+
+<h2>Deployment</h2> 
+
+ 
+<h2>Maintenance</h2> 
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+    <hr/>
+    By Luigi Maccallini 
+    <img src="./img/lm.jpg" alt="lm" width="15%" height="15%"> luigi.maccallini@studio.unibo.it 	|	<a style="color:white" href="https://github.com/luigi-mac/MaccalliniLuigi.git">Repo GitHub</a> 
+</div> 
+</body>
+</html>
