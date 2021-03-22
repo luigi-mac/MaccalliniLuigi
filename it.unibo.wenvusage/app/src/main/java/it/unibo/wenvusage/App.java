@@ -5,7 +5,7 @@ package it.unibo.wenvusage;
 
 public class App {
     public String getGreeting() {
-        return "Hello World from Unibo!";
+        return "Hello World!";
     }
 
     public static void main(String[] args) {
