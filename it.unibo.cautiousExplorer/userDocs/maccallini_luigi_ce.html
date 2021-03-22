@@ -86,6 +86,12 @@ kc{
     color: #008000	;
 	font-size: 90%;
 }
+kk{
+    font-family: "Arial";
+	font-weight: bold;
+    color:#cd009a	;
+	font-size: 90%;
+}
 pre{
 	font-family: "Consolas";
 	font-size: 85%;
@@ -192,15 +198,30 @@ div.imagedesc{
 	width: 85%;
 	margin: auto;
 }
+div.testplan{
+    background-color: #abe876;
+    padding-left: 5em;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+
+if{
+    font-family: "Arial";
+	font-weight: bold;
+    color:red;
+	font-size: 90%;
+}
 </style>
     
 <head>
    
-<title>Cautious Explorer</title></head>
+<title>Maccallini_Luigi_CE</title></head>
     
 <body>
 <div id="top">
-<h1>LABORATORIO DI INGEGNERIA DEI SISTEMI SOFTWARE - cautiousExplorer<font size="5"></font> </h1>
+<h1>LABORATORIO DI INGEGNERIA DEI SISTEMI SOFTWARE <font size="5"></font> </h1>
 </div>  
 
 <div class="body"> 
@@ -235,137 +256,243 @@ This case-study starts to deal with the design and development of proactive/reac
 <div class="remark">
 In seguito alla nostra interazione con il cliente abbiamo ottenuto informazioni precise riguardo alle seguenti componenti:
         <ul>
-            <li>robot: dispositivo in grado di muoversi nella stanza, tutte le specifiche date dal cliente sono presenti nel file <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a>; </li>
-            <li>movimento: sempre con riferimento al documento <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a> il robot è in grado di muoversi in avanti e indietro, oltre a poter ruotare di novanta gradi a destra e a sinistra;</li>
-            <li>sonar: dispositivo in grado di rilevare la presenza del robot, non abbiamo né informazioni sulla loro posizione né sul numero esatto di sonar presenti;</li>
-            <li>tana: punto della stanza vicino ad una delle mura, utilizzato dal robot come punto di partenza per ogni sua esplorazione e come punto di ritorno quando incontra un ostacolo. Come requisito opzionale, viene richiesto che il robot ritorni nella sua tana anche dopo essere stato rilevato dal sonar;</li>
-            <li>ostacolo: elemento della stanza diverso dalle pareti. Scopo del robot è quello di esplorare l'intera stanza e trovare gli ostacoli presenti. Al momento della richiesta l’ostacolo è considerato immobile;</li>
-            <li>mappa mentale del robot: insieme di dati di cui non è stata ancora definita una struttura ma che devono essere in grado di rappresentare la posizione degli ostacoli nell'ambiente.</li>
+            <li><ks>robot</ks>: dispositivo in grado di muoversi in un ambiente chiuso, tutte le specifiche date dal cliente sono presenti nel file <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a>; </li>
+            <li><ks>movimento</ks>: sempre con riferimento al documento <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a> il <ks>robot</ks> è in grado di muoversi in avanti e indietro, oltre a poter ruotare di novanta gradi a destra e a sinistra. Dalle specifiche del cliente si evince che sia preferibile 
+            definire un algoritmo per l'eplorazione che sia efficente evitando di utilizzare un movimento sempre randomico. La fase di descrizione dell'algoritmo verrà ripresa successivamente nel documento;</li>
+            <li><ks>sonar</ks>: dispositivo in grado di rilevare la presenza del <ks>robot</ks>, rendendo il <ks>robot</ks> consapevole di essere stato rilevato</li>
+            <li><ks>optionally</ks>: con questo termine il committente intende che tale comportamento deve poter essere attivato o disattivato a piacimento
+            <li><ks>tana</ks>: punto della stanza vicino ad una delle mura, utilizzato dal <ks>robot</ks> come punto di partenza per ogni sua esplorazione e come punto di ritorno quando incontra un ostacolo. Come requisito opzionale, viene richiesto che il <ks><robot</ks> ritorni nella sua tana anche dopo essere stato rilevato dal <ks>sonar</ks>;</li>
+            <li><ks>ostacolo</ks>: elemento della stanza diverso dalle pareti, scopo del <ks>robot</ks> è quello di trovare questi elementi nella stanza. al momento della richiesta l’ostacolo è considerato immobile;</li>
+            <li><ks>mappa mentale del robot</ks>: insieme di dati di cui non è stata ancora definita una struttura ma che devono essere in grado di rappresentare la posizione degli ostacoli nell'ambiente.</li>
         </ul>
     </div>
+        <h3>User Story 1 (requisiti opzionali non considerati)</h3>
+        <div class="remark">
+            il committente prevede di porre il <ks>robot</ks> nella sua <ks>tana</ks> all'interno dell'ambiente. attraverso il software,
+            devono essere inviati dei comandi al <ks>robot</ks> in modo tale che esso proceda nell'esplorazione della stanza. In seguito allaù
+            collisione con un ostacolo, il <ks>robot</ks> dovrà tornare alla sua <ks>tana</ks>. Eseguendo percorsi multipli il <ks>robot</ks> sarà in grado di ottenere
+            la mappa dell'ambiente comprensiva degli ostacoli presenti.
+        </div>
+        <h3>User Story 2 (requisiti opzionali considerati) </h3>
+        <div class="remark">
+            il committente prevede di porre il <ks>robot</ks> nella sua <ks>tana</ks> all'interno dell'ambiente. attraverso il software,
+            devono essere inviati dei comandi al <ks>robot</ks> in modo tale che esso proceda nell'esplorazione della stanza. In seguito allaù
+            collisione con un ostacolo, o nel momento in cui uno dei <ks>sonar</ks> rileva la sua posizione, questo dovrà tornare alla sua <ks>tana</ks>. Eseguendo percorsi multipli il <ks>robot</ks> sarà in grado di ottenere
+            la mappa dell'ambiente comprensiva degli ostacoli presenti.
+        </div>
+    </div>
 
-</div>
+
 
 <h2>Problem analysis</h2>
 <div class="remark">
-    Come riportato nel file <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a> </li> il robot è in grado di ricevere comandi tramite in due modalità:
+    come riportato nel file <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a> </li> il <ks>robot</ks> è in grado di ricevere comandi tramite in due modalità:
     <ul>
-        <li>comandi inviati tramite protocollo HTTP usando il metodo POST, presso la porta <tt style="color: #cd009a;">8090</tt></li>
-        <li>comandi inviati utilizzando il costrutto websocker utilizzando la porta <tt style="color: #cd009a;">8091</tt></li>
+        <li>comandi inviati tramite protocollo HTTP usando il metodo POST, presso la porta <kk>8090</kk></li>
+        <li>comandi inviati utilizzando il costrutto websocker utilizzando la porta <kk>8091</kk></li>
     </ul>
-    Facendo riferimento all' introduzione del progetto, si nota che lo scambio di comandi deve essere asincrono, si decide quindi di utilizzare lo scambio di messaggi tramite web-socket attivo sulla porta <tt style="color: #cd009a;">8091</tt>.
+    Facendo riferimento all' introduzione del progetto, si nota che lo scambio di comandi deve essere asincrono, si decide quindi di utilizzare lo scambio di messaggi tramite web-socket attivo sulla porta <>8091</kk>.
     Nonostante il gap di astrazione presente a livello concettuale, l'interazione asincrona sarà poi implementata utilizzando apposite librerie messe a disposizione dal linguaggio di programmazione che verrà scelto.
-    Dalle precedenti informazioni, risulta utile mostrare un'astrazione dell'architettura logica che sta dietro allo scambio di messaggi con il robot.
+    Dalle precedenti informazioni, risulta utile mostrare un'astrazione dell'architettura logica che sta dietro allo scambio di messaggi con il <ks>robot</ks>.
+    <br>
+    <br>
+    Per quanto riguarda il linguaggio da utilizzare per comunicare con il roobt, con riferimento al documento <a href="file:///Users/Luigi/Desktop/Ingegneria_Sistemi_Software/issLab2021/it.unibo.boundaryWalk/userdocs/BoundaryWalk.html#annots"><em>BoundaryWalk.html</em></a> viene scelto come
+    linguaggio di comunicazione con il <ks>robot</ks> il linguagio <ks>arill</ks> (abstract <ks>robot</ks> interaciton language) poichè previsto di una temporarizzazione dei movimenti tali da poter muovere il <ks>robot</ks> in avanti e indietro di un'unità di spazio pari alla sua lunghezza.
+    Viene scelto questo linguaggio a discapito del linguaggio <ks>crill</ks> poichè si interfaccia meglio al requisito di costruire una mappa dell'ambiente esplorato dal <ks>robot</ks>.
+    <br>
+    <br>
+    Come riportato nell'analisi dei requisiti, si dovrà implementare un algoritmo che permetta al <ks>robot</ks> di esplorare la stanza in modo efficente, evitando di utilizzare movimenti casuali poichè non adatti alla creazione di test ottimali.
+    <br>
+    <br>
+    Come sottolineato nell'analisi dei requisiti e nelle due user story, il <ks>robot</ks>, in seguito alla collisione con un ostacolo o se rilevato dai <ks>sonar</ks>, deve ritornare alla sua <ks>tana</ks>. Non vengono imposti dei vincoli su che tipo di percorso il <ks>robot</ks> deve effettuare per tornare indietro. La prima possibilità
+    è sicuramente quella che prevede che il <ks>robot</ks> ritorni sui propri passi eseguendo le mosse opposte a quelle effettuate durante la fase di esplorazione, questa proposta evita sicuramente che durante il tragitto di ritorno il <ks>robot</ks> incrontri altri ostacoli o altri <ks>sonar</ks>, non ottimizzando però le tempistiche dovute al ripercorrimento dello stesso percorso. Una seconda possibilità è quella di trovare il percorso più breve per tornare alla tana, in questo caso si migliorano le tempistiche ma non viene garantito che il robot non incontri altri ostacoli o altri sonar a meno che non si conosca la struttura della stanza.
+    Al momento consideriamo valide entrambe le modalità che verranno poi approfondite nella fase di testing.
+    <br>
+    <br>
+    è ora possibile definire cosa debba fare il <ks>robot</ks> al fine di rispettare i requisiti:
+    <br>
+    finchè non sono stati trovati gli ostacoli presenti nell'ambiente: 
+        <ul>
+            <li>il <ks>robot</ks> parte dalla sua <ks>tana</ks> esplorando in maniera efficente l'ambiente circostanza il suo punto di partenza</li>
+            <li>ad ogni mossa il <ks>robot</ks> aggiorna la mappa dell'ambiente</li>
+            <li>quando incontra un ostacolo o se viene rilevato da un <ks>sonar</ks>(opzionale) questo torna alla sua <ks>tana</ks> eseguendo i suoi passi a ritroso o cercando il percorso più breve senza ostacoli o <ks>sonar</ks></li>
+        </ul>
     
+</div>
     <h3>Architettura logica</h3>
-
+<div class="remark">
+    
         <table>
+            <tr> 
+                <td>Viene riportta a fianco la legenda delle entità che potranno essere utilizzate per descrivere l'architettura logica del progetto.</td>
+                <td><img src="./img/legenda.png" height="45%" ></td>
+
+            </tr>
             <tr>
-                <td> E' necessario realizzare un'applciazione distribuita composta di due macro-componenti:
+                <td> è necessario realizzare un'applciazione distribuita composta di due macro-componenti:
                     <ul>
                         <li>
-                            il <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>Virtual Robot</em></a> fornito dal cliente
+                            il <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>Virtual Robot</em></a> fornito dal cliente;
                         </li>
                     <li>
-                        la nostra applicazione del robot esploratore, utilizzando un scambio di messaggi asincrono
+                        la nostra applicazione del <ks>robot</ks> esploratore;
                     </li>
+                    questi due componenti devono comunicare tramite uno scambio di messaggi asincrono.
+                    <br>
                     viene mostrata a fianco uno schema dell'architettura espressa nelle righe precedenti
                     </ul>
                 </td>
-                <td>inserisci immagine interazione asincrona</td>
+                <td>da inserire:
+                     immagine interazione asincrona</td>
             </tr>
 
         </table>
 
-        possiamo inoltre osservare che:
-        <ul>
-            <li>non vengono effettuate richieste particolari sulla metodologia di esplorazione della stanza, sarà quindi deciso in futuro quale algoritmo permette di effetttuare la ricognizione nel modo più efficente possibile </li>
-            <li>
-            con il fine di poter rendere l'applicazione il più riutilizzabile possibile verranno introdotti dei deigns pattern proprio con lo scopo di rendere il tutto il meno dipendente dalle tecnologie utilizzate dal robot del cliente
-            </li>
-            
-        </ul>
-            Per la stesura di un primo testplan introduciamo le seguenti abbreciazioni ai comandi "CRILL" del robot
-           <br>
-            w : {"robotmove":"moveForward", "time": 600}
-            <br>
-            s : {"robotmove":"moveForward", "time ":600}
-            <br>
-            h : {"robotmove":"moveForward", "time ":100}
-            <br>
-            l : {"robotmove":"turnLeft ", "time ":300}
-            <br>
-            r : {"robotmove":"turnRight", "time ":300}
-            <br>
-            impostando ora la durata dei movimenti w e s in modo tale da ottenere uno spostamento pari alla lunghezza stessa del robot che verrà d'ora in poi
-            chiamata L ed usando questa distanza come unità di misura di una struttura dati in grado di rappresentare l'area esplorata dal robot, possiamo esprimere il suo comportamento
-            nella maniera seguente:
-
-           <div class="Alpha">
-           
-            Fino a che non sono stati trovati tutti gli ostacoli:<br>
-                alla prima iterazione effettua un movimento rettilineo fino a che non incontra un muro, poi torna alla tana.
-                    le seguenti iterazioni del ciclo ripercorreranno lo stesso percorso fino al penultimo movimento dopo di che provo un'altra mossa tra "l" e "r".
-                    se dalla struttura dati comprendo che nessuna delle mosse "l" e "r" mi porta ad una cella libera allora torno indietro e provo a rieseguire uno spostamento prima a destra
-                    poi a sinistra, e in caso di successo continuo fino ad incontrare un ostacolo. 
-             
-           </div>
+       
 
  </div>
 
 <h2>Test plans</h2> 
-
+ Con lo scopo di verificare che il <ks>robot</ks> soddisfi i requisiti si dovrà replicare il seguente tetplan, facendo riferimento alle user story che sono state approvate:
  <div class="remark">
-    Alla prima interazione con il robot a questo verrà comandato di muoversi in avanti fino a che non incontrerà un ostacolo,
-            marcando ogni cella attraversata come percorribile o non percorribile. in seguito alla collisione il robot ritorna alla sua cella di partenza,
-            ripercorrendo le celle operando le mosse opposte a quelle del cammino di andata.  Da questo momento in poi il robot ripercorrerà sempre lo stesso
+    Alla prima interazione con il <ks>robot</ks> a questo verrà comandato di muoversi in avanti fino a che non incontrerà un ostacolo,
+            marcando ogni cella attraversata come percorribile o non percorribile. in seguito alla collisione il <ks>robot</ks> ritorna alla sua cella di partenza,
+            ripercorrendo le celle operando le mosse opposte a quelle del cammino di andata.  Da questo momento in poi il <ks>robot</ks> ripercorrerà sempre lo stesso
             percorso eseguito nel cammino di andata precedente ad eccezione dell'ultimo comando, che verrà sostituito con una svolta a destra e continuando diritti fino 
             ad incontrare il prossimo ostacolo. Se dalla struttura dati risulta che la svolta a destra porterà ad una collisione già avvenuta, questo eseguirà invece una rotazione a
             sinistra muovendosi poi in avanti fino ad incontrare un ostacolo. Se dalla struttura dati anche la svolta a sinistra risulta impossibile, allora torno indietro di una mossa ed eseguo di nuovo gli step precedenti. Quando la struttura dati sarà completa e non saranno presenti alcuni spazi percorribili, si può allora
-            dire che il robot ha trovato tutti gli ostacoli presenti intorno alla sua tana.
+            dire che il <ks>robot</ks> ha trovato tutti gli ostacoli presenti intorno alla sua <ks>tana</ks>.
 
  </div>
-
-<h2>Project</h2> 
-<table style="width:98%">
-    <tbody>	
-    <tr>
-    <td style="width:50%">
-    <h3>Natura del componente dell'applicazione</h3>
-    L'applicazione <em>cautiousExplorer</em> è un programma Java convenzionale, rappresentato nella figura come un oggetto con un thread interno. 
-    <br/>
-    </td>
-
-    </tr>
-    
-    <tr>
-    <td style="width:50%">
-    <h3>Un'architettura a più livelli: il livello di comunicazione di base </h3>
-    <div class="remark">
-        Per rendere il 'business code' il più indipendente possibile dai dettagli tecnologici dell'interazione 
-        con il robot virtuale (e con qualsiasi altro tipo di robot in futuro), strutturiamo il codice secondo un'architettura 
-        a strati convenzionale, che è la forma più semplice di pattern architettonico software, in cui i componenti 
-        sono organizzati in strati orizzontali. 
+ 
+    con riferimento al linguaggio <ks>arill</ks> introdotto in precedenza, prendiamo in considerazione le seguenti notazioni:<br>
+    <div class="Alpha">
+    <ks>ARIL</ks> ::= w | s | l | r | h<br>
+    <ks>w</ks> : means 'go forward',  so to cover a length equals to <kk>DR</kk><br>
+    <ks>s</ks> : means 'go backward', so to cover a length equals to <kk>DR</kk><br>
+    <ks>h</ks> : means 'stop moving'<br>
+    <ks>l</ks> : means 'turn left of 90'<br>
+    <ks>r</ks> : means 'turn right of 90'<br>   
+    <br>
+    <br>
     </div>
+    <h3>TestPlan 1(requisiti opzionali non considerati)</h3>
+    <div class="remark" >
     
-    Per il protocollo WS introdurremo un apposito supporto che implementa l'interfaccia<br/>
-    <a href="../app/src/main/java/it/unibo/interaction/IssOperations.java" target="web"><em>IssOperations.java</em></a> 
-    <pre>
-        public interface IssOperations {
-            void forward( String msg ) ;
-        }
-    </pre>
-    Viene introdotta l'interfaccia così da prevedere sviluppi futuri.<br/><br/>
-    L'implementazione di <a href="../app/src/main/java/it/unibo/robotSupports/IssWsSupport.java" target="web"><em>IssWsSupport.java</em></a>
-    basata sulla libreria  <ks>javax.websocket</ks>.<br/><br/>
-    Si prevede un IssCommsSupportFactory.java che fornisce un metodo factory per creare il supporto di comunicazione 
-    appropriato utilizzando un'annotazione Java definita dall'utente correlata all'oggetto fornito in input. 
-    </td>
-    </tr>
+    posto il <ks>robot</ks> nella sua tana<br>
+    inizializzata una struttura in grado di rappresentare uno spazio a 2 dimensioni e una stringa utilizzata per lo storico delle mosse<br>
+    <br><br>
+    while(ostacoli da trovare){<br>
+           
+                &nbsp;&nbsp;&nbsp;&nbsp;if(primo ciclo){<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(!collisione || tornato alla tana){<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>w</ks>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp torna_alla_tana();<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;else{<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torna_fino_a(memoriaComandi-1);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(no_caselle_laterali_libere())</if>{<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(!no_caselle_laterali_libere){<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torna_indietro_di_una_mossa();<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;switch(){<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;casella_libera_a_sinistra:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>l</ks>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(!collisione || tornato_alla_tana()){<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>w</ks>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torna_alla_tana();<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;casella_libera_a_destra: <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>r</ks>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(!collisione || tornato_alla_tana())<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>w</ks>;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torna_alla_tana();<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>               
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+            }<br>
+    </div>
+        <h3>TestPlan 2(requisiti opzionali considerati)</h3>
+        <div class="remark" >
     
-    
-    
-    </tbody>
+            posto il <ks>robot</ks> nella sua tana<br>
+            inizializzata una struttura in grado di rappresentare uno spazio a 2 dimensioni e una stringa utilizzata per lo storico delle mosse<br>
+            <br><br>
+            while(ostacoli da trovare){<br>
+                   
+                        &nbsp;&nbsp;&nbsp;&nbsp;if(primo ciclo){<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(!collisione || tornato alla tana || rilevato_da_sonar()){<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>w</ks>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp torna_alla_tana();<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;else{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torna_fino_a(memoriaComandi-1);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(no_caselle_laterali_libere()){<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(!no_caselle_laterali_libere){<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torna_indietro_di_una_mossa();<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;switch(){<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;casella_libera_a_sinistra:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>l</ks>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(!collisione || tornato_alla_tana() || rilevato_da_sonar()){<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>w</ks>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torna_alla_tana();<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;casella_libera_a_destra: <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>r</ks>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while(!collisione || tornato_alla_tana() || rilevato_da_sonar())<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<ks>w</ks>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;torna_alla_tana();<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>               
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br>
+        </div>
+ </div>
+<h2>Project</h2> 
+    <table>
+        <tr>
+            <td>
+                <h3>Componenti dell'applicazione</h3>
+                l'applicazione robotEsploratore viene pensata come un classico
+                programma java, rappresentato ad alto livello dall'immagine a fianco
+            </td>
+            <td>da inserire:
+                 immagine modello del progetto</td>
+        </tr>
+        <tr>
+            <td>
+            <h3>architettura dell'applicaizone</h3>
+            con lo scopo di rendere il codice il più possibile indipendente dalle tecnologie
+            utilizzate per la comunicazione con il <ks>robot</ks> del cliente, viene introdotta un'architettura stratificata
+            che rappresenta la forma più semplice di pattern architetturale.
+            Viene quindi introdotta una interfaccia che avrà un'implementazione per ogni
+            tipo di tecnologia utilizzabile
+            <pre>
+                public interface IssOperations {<br>
+                    void forward( String msg ) ;<br>
+                }<br>
+            </pre>
+            </td>
+            <td>da inserire: 
+                schema dell'architettura dell'applicazione</td>
+        </tr>
+        <tr> 
+            <td>viene prevista un classe IssCommsSuportFacotry.java che fungerà da factory per creare il 
+                corretto supporto per la comunicazione
+            </td>
+            <td>da inserire:
+                schema della facotry
+            </td>
+        </tr>
     </table>
 </div>
 
@@ -376,6 +503,16 @@ In seguito alla nostra interazione con il cliente abbiamo ottenuto informazioni 
 
  
 <h2>Maintenance</h2> 
+ 
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
 	      	
 <br/><br/> 	
 </div>  
