@@ -26,7 +26,6 @@ public class MainRobotActorJava {
 
         ConsoleGuiActor console = new ConsoleGuiActor();
         console.registerActor(ra);
-        console.registerActor(new NaiveObserverActor("naiveObs") );
 
         ra.send("startApp");
 

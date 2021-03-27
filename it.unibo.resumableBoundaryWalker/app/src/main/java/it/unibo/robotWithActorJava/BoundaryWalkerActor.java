@@ -11,10 +11,12 @@ public class BoundaryWalkerActor extends ActorBasicJava {
     final String turnRightMsg = "{\"robotmove\":\"turnRight\", \"time\": 300}";
     final String haltMsg      = "{\"robotmove\":\"alarm\", \"time\": 100}";
 
-    private enum State {start, walking, obstacle, end };
+    private enum State {start, walking, stop, obstacle, end};
     private IssWsHttpJavaSupport support;
-    private State curState       =  State.start ;
-    private int stepNum          = 1;
+    private State curState =  State.start ;
+    private int stepNum = 1;
+    private int numStop = 0;
+    private int numResume = 0;
     private RobotMovesInfo moves = new RobotMovesInfo(true);
 
     public BoundaryWalkerActor(String name, IssWsHttpJavaSupport support) {
@@ -37,23 +39,41 @@ public class BoundaryWalkerActor extends ActorBasicJava {
         System.out.println( myname + " | fsm state=" + curState + " stepNum=" + stepNum + " move=" + move + " endmove=" + endmove);
         switch( curState ) {
             case start: {
-                moves.showRobotMovesRepresentation();
-                doStep();
-                curState = State.walking;
+                numResume = 0;
+                numStop = 0;
+                if (move.equals("RESUME")) {
+                    moves.showRobotMovesRepresentation();
+                    curState = State.walking;
+                    numResume++;
+                    doStep();
+                }
                 break;
             }
             case walking: {
-                if (move.equals("moveForward") && endmove.equals("true")) {
+                if (move.equals("moveForward") && (endmove.equals("halted") || endmove.equals("true"))) {
                     //curState = State.walk;
                     moves.updateMovesRep("w");
                     doStep();
                  } else if (move.equals("moveForward") && endmove.equals("false")) {
                     curState = State.obstacle;
                     turnLeft();
-                } else {System.out.println("IGNORE answer of turnLeft");
-                }
+                } else if (move.equals("STOP")) {
+                    curState = State.stop;
+                    numStop++;
+                    stopJourney();
+                } else{ System.out.println("IGNORE answer of turnLeft"); }
                 break;
             }//walk
+
+            case stop: {
+                if (move.equals("RESUME")) {
+                moves.showRobotMovesRepresentation();
+                curState = State.walking;
+                numResume++;
+                doStep();
+                }
+                break;
+            }
 
             case obstacle :
                 if( move.equals("turnLeft") && endmove.equals("true")) {
@@ -71,11 +91,13 @@ public class BoundaryWalkerActor extends ActorBasicJava {
 
             case end : {
                 if( move.equals("turnLeft") ) {
-                    System.out.println("BOUNDARY WALK END");
+                    System.out.println("BOUNDARY WALK END | numResume=" + numResume + ", numStop=" + numStop);
                     moves.showRobotMovesRepresentation();
                     turnRight();    //to compensate last turnLeft
                 }else{
                     //reset();
+                    System.out.println("RobotBoundaryLogic | FINAL MAP:"  );
+                    moves.showRobotMovesRepresentation();
                     stepNum        = 1;
                     curState       =  State.start;
                     moves.getMovesRepresentationAndClean();
@@ -120,11 +142,12 @@ public class BoundaryWalkerActor extends ActorBasicJava {
         System.out.println("===================================================="    );
         System.out.println("RobotApplication | handleRobotCmd cmd=" + cmd  );
         System.out.println("===================================================="    );
+        fsm(cmd, "");
     }
 
     //------------------------------------------------
     protected void doStep(){
-        support.forward( forwardMsg);
+        support.forward( forwardMsg );
         delay(1000); //to avoid too-rapid movement
     }
     protected void turnLeft(){
@@ -134,6 +157,11 @@ public class BoundaryWalkerActor extends ActorBasicJava {
     protected void turnRight(){
         support.forward( turnRightMsg );
         delay(500); //to avoid too-rapid movement
+    }
+
+    protected void stopJourney(){
+        support.forward( haltMsg );
+        delay(1000);
     }
 
 }

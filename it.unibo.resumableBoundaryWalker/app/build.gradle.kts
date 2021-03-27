@@ -18,7 +18,7 @@ plugins{
 repositories {
     // Use JCenter for resolving dependencies.
     jcenter()
-    flatDir{ dirs("../../unibolibs")   }   //Our libraries
+    flatDir{ dirs("../unibolibs")   }   //Our libraries
 }
 
 version="1.0"
@@ -83,7 +83,7 @@ jacocoTestReport {
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.virtualrobotclient.wenv.UsingConnTcpKt")
+    mainClass.set("it.unibo.resumableBoundaryWalke.wenv.UsingConnTcpKt")
 }
 
 

@@ -8,6 +8,7 @@ sent to the WEnv by using WEnvConnSupportNoChannel.sendMessage
  */
 package it.unibo.consolegui;
 
+import it.unibo.robotWithActorJava.BoundaryWalkerActor;
 import it.unibo.supports2021.ActorBasicJava;
 
 import java.util.Observable;
@@ -32,6 +33,7 @@ private String[] buttonLabels  = new String[]  { "STOP", "RESUME" };
 		String robotCmd = (move == "STOP") ? "{\"robotcmd\":\"STOP\" }" : "{\"robotcmd\":\"RESUME\" }";
 		//System.out.println("GUI input robotCmd=" + robotCmd );
 		//controller.handleInfo( robotCmd );
+
 		this.updateObservers( robotCmd );
 	}
 	
