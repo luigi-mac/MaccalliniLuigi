@@ -7,32 +7,41 @@ sent to the WEnv by using WEnvConnSupportNoChannel.sendMessage
 ===============================================================
  */
 package it.unibo.consolegui;
-import it.unibo.interaction.IssObserver;
-import it.unibo.wenv.RobotInputController;
+
+import it.unibo.supports2021.ActorBasicJava;
+
 import java.util.Observable;
 import java.util.Observer;
 
-public class ConsoleGui implements  Observer{	//Observer deprecated in 11 WHY?
+public class ConsoleGuiActor extends ActorBasicJava implements  Observer{	//Observer deprecated in 11 WHY?
 private String[] buttonLabels  = new String[]  { "STOP", "RESUME" };
-private IssObserver controller ;
+//private IJavaActor controller ;
 
-	public ConsoleGui(IssObserver controller) {
+	public ConsoleGuiActor( ) {
+		super("userConsole");
 		GuiUtils.showSystemInfo();
 		ButtonAsGui concreteButton = ButtonAsGui.createButtons( "", buttonLabels );
 		concreteButton.addObserver( this );
-		this.controller = controller;
+		//this.controller = controller;
  	}
-	@Override
-		public void update( Observable o , Object arg ) {	//Observable deprecated WHY?
+
+ 	@Override //Observer
+	public void update( Observable o , Object arg ) {	//Observable deprecated WHY?
 		String move = arg.toString();
 		//System.out.println("GUI input move=" + move);
 		String robotCmd = (move == "STOP") ? "{\"robotcmd\":\"STOP\" }" : "{\"robotcmd\":\"RESUME\" }";
 		//System.out.println("GUI input robotCmd=" + robotCmd );
-		controller.handleInfo( robotCmd );
+		//controller.handleInfo( robotCmd );
+		this.updateObservers( robotCmd );
 	}
 	
 	public static void main( String[] args) {
-		new ConsoleGui(  new RobotInputController(null, true,true));
+		new ConsoleGuiActor(   );
+	}
+
+	@Override
+	protected void handleInput(String s) {
+
 	}
 }
 
